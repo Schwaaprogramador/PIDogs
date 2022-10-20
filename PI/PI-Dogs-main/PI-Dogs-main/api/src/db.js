@@ -32,12 +32,14 @@ database.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 const { Raza, Temperamento } = database.models;
 
-console.log(Temperamento);
+//console.log(Temperamento);
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
 Temperamento.belongsToMany( Raza, {through:"raza_temperamento"});
 Raza.belongsToMany( Temperamento, {through:"raza_temperamento"});
+
+
 
 
 

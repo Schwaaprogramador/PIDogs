@@ -4,11 +4,12 @@ const axios = require("axios");
 const { Raza , Temperamento } = require ("../db.js");
 
 
-//--------------------
+//--------------------API DOGS
 const getApiDogs = async ()=>{
     const apiUrl = await axios.get("https://api.thedogapi.com/v1/breeds");
     const apiInfo = await apiUrl.data.map(dog=>{
         return {
+            id: dog.id,
             name: dog.name,
             weight: dog.weight,
             height: dog.height,
@@ -21,7 +22,7 @@ const getApiDogs = async ()=>{
 }
 
 
-//---------------------
+//---------------------DB DOGS
 const getDbDogs = async ()=> {
     return await Raza.findAll({
         include:{
@@ -48,8 +49,25 @@ const getAllDogs = async ()=>{
 
 
 
+
+//---------CREAR UN NUEVO PERRO EN LA BASE
+
+const createDog = async (name, height, weight, life_span, createdInDb, temperaments)=>{
+
+    let newDog = await Raza.create({ name, height, weight, life_span, createdInDb});
+
+    let tempDb = await Temperamento.findAll({ where: {name: temperaments}});
+
+    newDog.addTemperamento(tempDb);
+
+    return newDog;
+}
+
+
+
 module.exports = {
     getApiDogs,
     getDbDogs,
     getAllDogs,
+    createDog,
 }
