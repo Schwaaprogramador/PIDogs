@@ -13,12 +13,15 @@ const temperamentsRouter = Router(); //Intancia del router----
 
 
 
+
 // Ruta----------
 temperamentsRouter.get ("/", async (request, response)=>{
-    const todosLosTemperamentos = await getTemperaments();
 
-    response.status(200).send(todosLosTemperamentos);
+    const temps = await getTemperaments();
+
+    response.status(200).send(temps);
 });
+
 
 
 module.exports = temperamentsRouter;

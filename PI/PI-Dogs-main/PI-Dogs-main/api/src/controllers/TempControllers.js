@@ -1,24 +1,26 @@
 //imports
 const { Temperamento } = require ("../db.js");
 const axios = require("axios");
+const temperamentsRouter = require("../routes/temperamentsRouter.js");
 
 
 //-------------
 const getTemperaments = async ()=>{
-
+    // traer los temps de la api
     const temperamentosApi = await axios.get("https://api.thedogapi.com/v1/breeds");
+    const temps = await temperamentosApi.data;
 
-    const todosLosTemperamentos = temperamentosApi.data.map( dog => dog.temperament);
-    console.log(todosLosTemperamentos);
+    let temperamentosSolos= temps.map(t=>t.temperament).join().split(",").sort();
 
-    const temps = todosLosTemperamentos.split(","); // split devuelve un nuevo array.
-    
-    await Temperamento.bulkCreate(temps);
-    //temps.forEach(element => { Temperamento.findOrCreate({ where: {name:element} })});
+    temperamentosSolos = await temperamentosSolos.map(t=>{
+        Temperamento.findOrCreate({
+            where:{ name: t.trim()},
+        })
+    })
 
-    const temperamentosDb = await Temperamento.findAll();
+    const dbTemps = await Temperamento.findAll({order:[['name']]});
+    return dbTemps;
 
-    return temperamentosDb;
 };
 
 
