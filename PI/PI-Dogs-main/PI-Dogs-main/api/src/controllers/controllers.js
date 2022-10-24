@@ -15,6 +15,7 @@ const getApiDogs = async ()=>{
             height: dog.height,
             life_span: dog.life_span,
             temperament: dog.temperament,
+            image: dog.image,
             //temperament: dog.temperament.map(temp => temp) 
         }
     })

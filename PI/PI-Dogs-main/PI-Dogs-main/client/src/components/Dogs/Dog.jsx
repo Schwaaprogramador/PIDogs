@@ -1,24 +1,25 @@
 import React from "react";
 //import styles from "./Dog.module.css";
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
+
 
 
 const Dog = ({image, nombre, temperamento, peso, id})=>{
-    // Un get en insomnio remplaza estos console.logs
-        
+    
+    console.log(image)
     return (<>
-            
-           <div className={styles.container}>
-                
+
+            <img src={image.url} alt="perro-imagen" width="400px" height="300px"/>
+
+
+           <div>
                     <NavLink to={`/dogdetail/${id}`}><h2>{nombre}</h2></NavLink>
-                        <h3>{temperamento}</h3>
-                        <h3>{peso}</h3>
-                        
-                
-             
+                    <h3>{temperamento}</h3>
+                    <h3>{peso}</h3>
             </div>
 
-            <img src={image.url} alt="perro-imagen" className={styles.img}/>
+         
+            
            
             </>)
 };
