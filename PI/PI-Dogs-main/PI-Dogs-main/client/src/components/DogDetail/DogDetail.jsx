@@ -1,48 +1,54 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, {useEffect} from "react";
+import { Link, useHistory } from "react-router-dom";
 import { getDogDetail } from "../../redux/actions.js";
+import { useDispatch, useSelector } from "react-redux";
 
 
 
-const DogDetail = (props)=> {
-
+export default function DogDetail(props){
     console.log(props)
-    //useEffect(()=>{props.getDogDetail(props.match.params.id)},[]);
-     
-    return (<>
+    const dispatch = useDispatch();
+
+    useEffect(()=>{dispatch(getDogDetail(props.match.params.id))},[dispatch]);
+
+        const dogDetail = useSelector(state=>state.dogDetail)
+
+        return (
+            <>
+                { dogDetail.length>0 ? 
                 <div>
-                    <h1>DOG DETAIL</h1>
-                    <h2>{props.dogDetail.name}</h2>
-                    <h3>{props.dogDetail.temperament}</h3>
-                    <h3>{props.dogDetail.origin}</h3>
-                    {/* <h3>{props.dogDetail.weight.metric}</h3>
-                    <h3>{props.dogDetail.height.metric}</h3> */}
-                    {/* <p>{props.match.params.id}</p> */}
-                    <img src={`https://cdn2.thedogapi.com/images/${props.dogDetail.reference_image_id}.jpg`} alt="perro-imagen"/>
-                    
-                </div>
-          
-           
-            </>)
+                    <img src={dogDetail[0].image.url} alt='perro-imagen'/>
+                    <h1>Name: {dogDetail[0].name}</h1>
+                    <h1>Name: {dogDetail[0].name}</h1>
+                    <h1>Name: {dogDetail[0].name}</h1>
+                </div>: <p>Loading..</p>
+                
+            }
+            
+            
+            <Link to="/home"><button>Back</button></Link>
+            </>
+        )
 };
 
 
 // ---------- Conectar al store Redux----------
 
-const mapStateToProps = (state)=>{
-    return {
-        dogDetail:state.dogDetail, // ESTADO GLOBAL
+// const mapStateToProps = (state)=>{
+//     return {
+//         dogDetail:state.dogDetail, // ESTADO GLOBAL
 
-    }
+//     }
     
-}
+// }
 
 
-//FUNCIONES PARA HACER DISPATCH= useDispatch() el HOOK
-const mapDispatchToProps = (dispatch)=>{    
-return {
-    getDogDetail: (id)=> dispatch(getDogDetail(id)),
-}
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(DogDetail);
+// //FUNCIONES PARA HACER DISPATCH= useDispatch() el HOOK
+// const mapDispatchToProps = (dispatch)=>{    
+// return {
+//     getDogDetail: (id)=> dispatch(getDogDetail(id)),
+// }
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(DogDetail);

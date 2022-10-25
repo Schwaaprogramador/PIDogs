@@ -15,7 +15,7 @@ const temperamentsRouter = Router(); //Intancia del router----
 
 
 // Ruta----------
-temperamentsRouter.get ("/", async (request, response)=>{
+temperamentsRouter.get("/", async (request, response)=>{
 
     const temps = await getTemperaments();
 

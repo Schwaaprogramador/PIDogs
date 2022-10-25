@@ -29,7 +29,7 @@ export function SearchBar(){
     //RENDER COMPO
     return (
         <div>
-            <input type='text' placeholder="Buscar..." onChange={(evento) => handlerInputChange(evento)} ></input>
+            <input type='text' placeholder="Search Dog..." onChange={(evento) => handlerInputChange(evento)} ></input>
             <button type="submit" onClick={(evento)=> handlerSubmit(evento)}>Buscar</button>
         </div>
     )

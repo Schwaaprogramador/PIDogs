@@ -8,17 +8,20 @@ import styles from "./LandingPage.module.css";
 //COMPONENTE
 const LandingPage = ()=>{
         
-    return (<>
+    return (
             <div className={styles.container}>
 
-                    <h1 className={styles.h1}>Daniel Toro<br/>Api Dogs</h1>
-                    <NavLink to='/home' className={styles.botonIngreso}>INGRESAR</NavLink>
+                    
+                <div><h1 className={styles.h1}>Daniel Toro<br/>Api Dogs</h1></div>
+                
+                <div>  <NavLink to='/home' className={styles.botonIngreso}>Let's Go</NavLink></div>
+                  
                  
                     
 
             </div>
             
-            </>)
+            )
 };
 
 
