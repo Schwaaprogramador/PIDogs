@@ -8,23 +8,23 @@ import styles from "./App.css";
 
 function App() {
   return (<div className={styles.App}>
-          <Route exact path="/" >
-            <LandingPage/>
-          </Route>
+    
+            <Route exact path="/" >
+              <LandingPage/>
+            </Route>
 
-          <Route path="/home">
-            <Home/>
-          </Route>
+            <Route path="/home">
+              <Home/>
+            </Route>
 
-          <Route exact path="/createdog">
-            <CreateDog/>
-          </Route>
+            <Route exact path="/createdog">
+              <CreateDog/>
+            </Route>
 
 
-          {/* Route component recibe automaticamente el id */}
-          {/* Al route component no se le pueden pasar props, tiene un match por default */}
-          <Route path="/dogdetail/:id"  component={DogDetail}/>
-
+            {/* Route component recibe automaticamente el id */}
+            {/* Al route component no se le pueden pasar props, tiene un match por default */}
+            <Route path="/dogdetail/:id"  component={DogDetail}/>
 
           </div>
     

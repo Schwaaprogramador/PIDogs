@@ -1,8 +1,9 @@
 //importanciones
 import React, {useState, useEffect} from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { postDog, getTemps} from "../../redux/actions.js";
 import { useDispatch, useSelector } from "react-redux";
+import styled from "./CreateDog.module.css";;
 
 
 
@@ -89,8 +90,9 @@ const CreateDog = (props)=>{
 
 
     return (<>
+    <div className={styled.container}>
 
-            <NavLink to="/home"><button>Back</button></NavLink>
+            
             <h1>CREATE YOUR DOG</h1>
             <form>
                 <div>
@@ -138,7 +140,7 @@ const CreateDog = (props)=>{
 
 
                 <div>
-                    <h4>Temperaments:</h4>
+                    <h4> Select Temperaments:</h4>
 
                 <select onChange={handleSelect}>
 
@@ -170,6 +172,10 @@ const CreateDog = (props)=>{
                         </>)}</li>
                     <li>hola</li>
             </ul>
+
+            <Link to="/home"><button>Back</button></Link>
+
+            </div>
            
             </>)
 };

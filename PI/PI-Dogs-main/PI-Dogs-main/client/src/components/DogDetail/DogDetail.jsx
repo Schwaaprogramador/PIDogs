@@ -2,7 +2,8 @@ import React, {useEffect} from "react";
 import { Link, useHistory } from "react-router-dom";
 import { getDogDetail } from "../../redux/actions.js";
 import { useDispatch, useSelector } from "react-redux";
-
+import styled from "./DogDetail.module.css";
+import { FaAngleLeft } from "react-icons/fa";
 
 
 export default function DogDetail(props){
@@ -14,20 +15,36 @@ export default function DogDetail(props){
         const dogDetail = useSelector(state=>state.dogDetail)
 
         return (
-            <>
-                { dogDetail.length>0 ? 
-                <div>
-                    <img src={dogDetail[0].image.url} alt='perro-imagen'/>
-                    <h1>Name: {dogDetail[0].name}</h1>
-                    <h1>Name: {dogDetail[0].name}</h1>
-                    <h1>Name: {dogDetail[0].name}</h1>
-                </div>: <p>Loading..</p>
+            
+                <div classname={styled.todo}>
+
+
+                    { dogDetail.length > 0 ? 
+                            <div className={styled.todo}>
+
+                                <img src={dogDetail[0].image.url} alt='perro-imagen' className={styled.image}/>
+                                <h1>Name: {dogDetail[0].name}</h1>
+                                <h3>Temperament: {dogDetail[0].temperament}</h3>
+                                <h3>Height: {dogDetail[0].height.metric}</h3>
+                                <h3>weight: {dogDetail[0].weight.metric}</h3>
+                                <h3>life_span: {dogDetail[0].life_span}</h3>
+                                
+                                <Link to="/home"><button className={styled.icon}><FaAngleLeft/></button></Link>
+
+                            </div>: <p>Loading..</p>
                 
-            }
+                    
+                    }
+
+
+                
+
+
+                </div>
             
             
-            <Link to="/home"><button>Back</button></Link>
-            </>
+            
+            
         )
 };
 

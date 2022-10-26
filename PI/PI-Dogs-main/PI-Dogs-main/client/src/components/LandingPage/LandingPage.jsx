@@ -12,9 +12,9 @@ const LandingPage = ()=>{
             <div className={styles.container}>
 
                     
-                <div><h1 className={styles.h1}>Daniel Toro<br/>Api Dogs</h1></div>
+                <div><h1 className={styles.h1}> Daniel Toro <span className={styles.span}>Api Dogs</span>  </h1></div>
                 
-                <div>  <NavLink to='/home' className={styles.botonIngreso}>Let's Go</NavLink></div>
+                <div>  <NavLink to='/home' className={styles.botonIngreso}>LET'S GO</NavLink></div>
                   
                  
                     

@@ -1,0 +1,37 @@
+.container {
+    
+    color: chocolate;
+    display: flex;
+ 
+    border-bottom: 2px solid chocolate;
+    height: 50vh;
+    align-items: center;
+    height: 20vh;
+    width: 30vw;
+    padding: 25px;
+    gap: 25px;
+    
+   
+
+}
+
+.imagen {
+    height: 25vh;
+    width: 15vw;
+    border-radius: 50px;
+}
+
+.navlink {
+  
+    text-decoration: none;
+    color: aliceblue;
+} 
+.navlink:hover {
+    color: chocolate;
+    text-shadow: 25px;
+}
+
+.text {
+    align-items: center;
+}
+

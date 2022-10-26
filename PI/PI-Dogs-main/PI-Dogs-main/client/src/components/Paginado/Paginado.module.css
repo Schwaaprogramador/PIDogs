@@ -1,0 +1,8 @@
+.paginado {
+    padding: .4rem;
+    background-color: chocolate;
+    display: flex;
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+}
