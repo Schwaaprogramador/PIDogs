@@ -3,6 +3,7 @@
     background-color: chocolate;
     display: flex;
     color: white;
+    gap: 5px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }

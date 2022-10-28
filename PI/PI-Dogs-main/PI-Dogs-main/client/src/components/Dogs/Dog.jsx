@@ -19,8 +19,8 @@ const Dog = ({image, nombre, temperamento, peso, id})=>{
                 <div className={styled.text}>
                         <NavLink to={`/dogdetail/${id}`} className={styled.navlink}><h2>{nombre}</h2></NavLink>
 
-                        <h3>Temperament: {temperamento}</h3>
-                        <h3>Weight: {peso}</h3>
+                        <p>Temperament: {temperamento}</p>
+                        <p>Weight: {peso}</p>
                 </div>
 
         </div>

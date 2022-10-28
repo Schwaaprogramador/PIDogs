@@ -16,7 +16,7 @@ export default function DogDetail(props){
 
         return (
             
-                <div classname={styled.todo}>
+                <div className={styled.todo}>
 
 
                     { dogDetail.length > 0 ? 

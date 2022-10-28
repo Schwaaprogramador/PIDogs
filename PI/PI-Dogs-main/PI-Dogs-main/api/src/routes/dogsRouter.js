@@ -36,7 +36,7 @@ dogsRouter.get("/:id", async (request, response)=>{
 
     const idDog = await todosLosDogs.filter( dog => dog.id == parseInt(id));
         
-    console.log(idDog)
+  
 
         idDog.length ? 
         response.status(200).send(idDog) :

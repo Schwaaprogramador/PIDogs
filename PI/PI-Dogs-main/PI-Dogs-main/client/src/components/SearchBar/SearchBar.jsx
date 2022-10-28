@@ -6,16 +6,17 @@ import { getNameDogs } from "../../redux/actions";
 
 
 export function SearchBar(){
+    
     const dispatch = useDispatch();
 
     const [name, setName] = useState('');
 
 
-    //------ HANDLERS -----
+    
     const handlerInputChange = (evento)=>{
         evento.preventDefault();
         setName(evento.target.value);
-        console.log(name);
+        
 
     };
     const handlerSubmit=(evento)=>{
@@ -25,12 +26,10 @@ export function SearchBar(){
     }
 
 
-
-    //RENDER COMPO
     return (
         <div>
             <input type='text' placeholder="Search Dog..." onChange={(evento) => handlerInputChange(evento)} ></input>
-            <button type="submit" onClick={(evento)=> handlerSubmit(evento)}>Buscar</button>
+            <button type="submit" onClick={(evento)=> handlerSubmit(evento)}>Search</button>
         </div>
     )
 }

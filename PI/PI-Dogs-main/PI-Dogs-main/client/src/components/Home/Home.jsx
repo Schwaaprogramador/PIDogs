@@ -3,46 +3,50 @@ import NavBar from "../NavBar/NavBar.jsx";
 import styled from "./Home.module.css";
 import { useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { filterDogsByTemp, getDogs, filterCreated } from "../../redux/actions.js";
-import { NavLink } from "react-router-dom";
+import { filterDogsByTemp, getDogs, filterCreated, getTemps } from "../../redux/actions.js";
+
 import Dog from "../Dogs/Dog.jsx";
 import Paginado from "../Paginado/Paginado.jsx";
 import { FaRedoAlt } from "react-icons/fa";
 
 const Home = ()=>{
 
-    //HOOKS----------
+    
 
     const dispatch = useDispatch();
-    const allDogs = useSelector((state)=> state.dogs); // mapStateToProps
-
-    //
+    const allDogs = useSelector((state)=> state.dogs);
+    const tempsDb = useSelector((state)=> state.temps);
+    
     useEffect (()=>{
-        dispatch(getDogs())
-    }, []); 
+        dispatch(getDogs());
+        dispatch(getTemps());
+    }, [dispatch]); 
 
 
-    //Paginado-----
-    const [currentPage, serCurrentPage] = useState(1);
-    const [dogsPage] = useState(8);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [dogsPage, setDogsPage] = useState(8);
+
     const indexLastDog = currentPage * dogsPage;
     const indexFirtsDog = indexLastDog - dogsPage;
 
     const currentDogs = allDogs.slice(indexFirtsDog, indexLastDog);
 
     const paginado = (pageNumber)=>{
-        serCurrentPage(pageNumber);
+        setCurrentPage(pageNumber);
     }
 
 
-    //HANDLERS--------
+    
     const buttonHandler = (evento)=>{
         evento.preventDefault();
         dispatch(getDogs());
     }
 
     const filterTemps = (evento)=>{
+        console.log(evento.target.value);
         dispatch(filterDogsByTemp(evento.target.value));
+        
     }
 
     const filterByCreated = (evento)=>{
@@ -50,44 +54,48 @@ const Home = ()=>{
     }
 
 
-    //RENDERIZADOS
     return (<>
+
             <NavBar/>
             
-            <h1>WELCOME</h1>
-
             
-            <button onClick={evento=>{buttonHandler(evento)}}><FaRedoAlt/></button>
 
+        
              
 
-            <div>
+            <div className={styled.filters}>
+                <div>
                 <b>Organice: </b>
                 <select>
                     <option value='asc'>Ascendente</option>
                     <option value='desc'>Desendente</option>
                 </select>
+                </div>
 
 
+                <div>
                 <b>Temperaments: </b>
+
                 <select onChange={evento => filterTemps(evento)}>
-                    <option value='Todos'>All</option>
-                    <option value='Active'>Active</option>
-                    <option value='Adaptable'>Adaptable</option>
-                    <option value='Adventurous'>Adventurous</option>
-                    <option value='Affectionate'>Affectionate</option>
-                    <option value='Agile'>Agile</option>
-                    <option value='Alert'>Alert</option>
-                    <option value='Assertive'>Assertive</option>
+
+                    <option value='All'>All</option>
+
+                    {tempsDb.map(temp => (<option value={temp.name}>{temp.name}</option>))}
+                    
                 </select>
+                </div>
 
 
-                <b>Creados: </b> 
+                <div>
+                <b> Created: </b> 
                 <select onChange={evento => filterByCreated(evento)}>
-                    <option value='Todos'>Todos</option>
-                    <option value='Creados'>Creados</option>
-                    <option value='Existentes'>Existentes</option>
+                    <option value='All'>All</option>
+                    <option value='Created'>Created</option>
+                    <option value='Exist'>Exist</option>
                 </select>
+                </div>
+
+                <button onClick={evento=>{buttonHandler(evento)}}><FaRedoAlt/></button>
 
             </div>
 

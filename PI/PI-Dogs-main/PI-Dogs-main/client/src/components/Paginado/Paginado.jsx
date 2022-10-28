@@ -14,9 +14,9 @@ export default function Paginado({dogsPage, allDogs, paginado}){
                 <div >
                     <ul className={styled.paginado}>
                         {pageNumbers && pageNumbers.map( number =>(
-                                    <li key={number}>
+                                    
                                         <button onClick={()=> paginado(number)}>  {number}  </button>
-                                    </li>
+                                    
                         ))}
                     </ul>
                 </div>

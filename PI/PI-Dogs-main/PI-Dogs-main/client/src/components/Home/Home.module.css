@@ -6,3 +6,12 @@
     gap: 20px;
 }
 
+.filters {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    background-color: chocolate;
+    padding: 20px;
+}
+

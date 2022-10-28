@@ -7,6 +7,7 @@ export const FILTER_BY_TEMP = "FILTER_BY_TEMP";
 export const FILTER_CREATED = "FILTER_CREATED";
 export const GET_NAME_DOGS = "GET_NAME_DOGS";
 export const GET_TEMPS = "GET_TEMPS";
+export const POST_DOG = "POST-DOG";
 
 
 
@@ -37,7 +38,7 @@ export const getDogDetail = (id)=>{
 export const filterDogsByTemp = (payload)=>{
     return {
         type: FILTER_BY_TEMP,
-        payload
+        payload,
     }
 
 };
@@ -48,7 +49,7 @@ export const filterDogsByTemp = (payload)=>{
 export const filterCreated= (payload)=>{
     return {
         type: FILTER_CREATED,
-        payload
+        payload,
     }
 };
 
@@ -84,11 +85,11 @@ export function getTemps(){
     };
 
 
-//-----
+
 export function postDog(payload){
-    return async function (dispatch){
+    return async function (){
         const createdDog = await axios.post("http://localhost:3001/dogs", payload);
-        console.log(createdDog);
+        
         return createdDog;
     }
 }

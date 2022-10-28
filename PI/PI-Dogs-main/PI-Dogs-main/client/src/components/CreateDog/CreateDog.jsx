@@ -1,9 +1,13 @@
-//importanciones
+
 import React, {useState, useEffect} from "react";
-import { Link, useHistory } from "react-router-dom";
+//import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { postDog, getTemps} from "../../redux/actions.js";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "./CreateDog.module.css";;
+import styled from "./CreateDog.module.css";
+import { FaRedoAlt } from "react-icons/fa";
+import { FaRegMinusSquare } from "react-icons/fa";
+
 
 
 
@@ -11,8 +15,13 @@ const validacion = (input)=>{
     let errors = [];
     if(!input.name){
         errors.name = 'Name required';
-    }else if(!input.temperaments) {
-        errors.temperaments = 'temperaments required';
+    }else if(!input.height) {
+        errors.height = 'Height required';
+    }
+    else if(!input.weight) {
+        errors.weight = 'Weight required';
+    }else if(!input.life_span) {
+        errors.life_span = 'Life Span required';
     }
     return errors;
 }
@@ -21,17 +30,21 @@ const validacion = (input)=>{
 
 
 
-
 const CreateDog = (props)=>{
 
 
+   
+    //const history = useHistory();
+
+    const tempsDb = useSelector((state)=> state.temps);
+
     const dispatch = useDispatch();
-    const history = useHistory();
-    const tempsDb = useSelector((state)=> state.temps)
-
-
-    //States----
+    useEffect=(()=>{
+        dispatch(getTemps());
+    }, [dispatch]);
+    
     const [errors, setErrors] = useState({});
+
     const [input, setInput] = useState({
         name: '', 
         height: '', 
@@ -40,12 +53,8 @@ const CreateDog = (props)=>{
         temperaments:[],
     });
 
-        useEffect=(()=>{
-            dispatch(getTemps());
-        }, [])
-
-
-    //Handlers----------
+        
+    
     const handleChange = (evento)=>{
         setInput({
             ...input,
@@ -77,7 +86,7 @@ const CreateDog = (props)=>{
             life_span:"", 
             temperaments:[],
         })
-        history.push("/home");
+        
     }
 
     const handleDelete = (tempToDelete)=>{
@@ -89,95 +98,111 @@ const CreateDog = (props)=>{
 
 
 
-    return (<>
-    <div className={styled.container}>
+    return (
+        <div className={styled.container}>
 
             
-            <h1>CREATE YOUR DOG</h1>
-            <form>
-                <div>
-                    <label>Nombre:</label>
-                    <input 
-                            type='text' 
-                            value= {input.name}
-                            name= 'name'
-                            onChange={handleChange}
-                            />
-                            {errors.name && (<p>{errors.name}</p>)}
+            <h1 className={styled.h1}>CREATE YOUR DOG</h1>
+            
+            
+            <form className={styled.form}>
 
-                </div>
+                    <div className={styled.input}>
+                        <label htmlFor="name">Name:</label>
+                        <input 
+                                type='text' 
+                                value= {input.name}
+                                name= 'name'
+                                onChange={handleChange}
+                                />
+                                {errors.name && (<div>{errors.name}</div>)}
+
+                    </div>
                 
-                <div>
-                    <label>height:</label>
-                    <input 
-                            type='text' 
-                            value= {input.height}
-                            name= 'height'
-                            onChange={handleChange}
-                            />
-                </div>
 
-                <div>
-                    <label>weight:</label>
-                    <input 
-                            type='text' 
-                            value= {input.weight}
-                            name= 'weight'
-                            onChange={handleChange}
-                            />
+                    <div className={styled.input}>
+                        <label>Height:</label>
+                        <input 
+                                type='number' 
+                                value= {input.height}
+                                name= 'height'
+                                onChange={handleChange}
+                                />
+                                {errors.height && (<div>{errors.height}</div>)}
+                    </div>
 
-                </div>
-                <div>
-                    <label>life_span:</label>
-                    <input 
-                            type='text' 
-                            value= {input.life_span}
-                            name= 'life_span'
-                            onChange={handleChange}
-                            />
+                    <div className={styled.input}>
+                        <label>Weight:</label>
+                        <input 
+                                type='number' 
+                                value= {input.weight}
+                                name= 'weight'
+                                onChange={handleChange}
+                                />
+                                {errors.weight && (<div>{errors.weight}</div>)}
 
-                </div>
+                    </div>
 
 
-                <div>
-                    <h4> Select Temperaments:</h4>
+                    <div className={styled.input}>
+                        <label>Life_span:</label>
+                        <input 
+                                type='number' 
+                                value= {input.life_span}
+                                name= 'life_span'
+                                onChange={handleChange}
+                                />
+                                {errors.life_span && (<div>{errors.life_span}</div>)}
 
-                <select onChange={handleSelect}>
+                    </div>
 
-                    {tempsDb.map((temp)=>{
-                        console.log(temp)
-                        return (<option value={temp.name}>{temp.name}</option>)
+
+                    <div className={styled.input}>
                         
-                    })}
-                    <option >Ejemplo1</option>
-                    <option >Ejemplo2</option>
-                </select >
+                        <p> Select Temperaments:</p>
 
-                </div>
+                        <select onChange={handleSelect}>
+
+                            
+                            {tempsDb.map(temp => (<option value={temp.name}>{temp.name}</option>))}
+
+                            {/* <input type= check value></input>
+                            label </input>*/}
+
+                        </select>
+
+                    </div>
+
+
+                    <ul>
+                        <li>
+                            {input.temperaments.map(temp => 
+                            <>
+                            <p>{temp}</p>
+                            <button
+                            onClick={(evento)=>handleDelete(evento)}><FaRegMinusSquare/></button>
+                                
+                            </>)}
+                        </li>
+                    </ul>
 
               
 
-                <button type="submit" onClick={handleSubmit}>Create Dog</button>
+                <button 
+                    type="submit"
+                    disabled={errors}
+                    onClick={handleSubmit} 
+                    className={styled.buttonCreate}>Create Dog</button>
 
 
             </form>
 
-            <ul>
-                    <li>{input.temperaments.map(temp => 
-                        <>
-                        <p>{temp}</p>
-                        <button
-                        onClick={(evento)=>handleDelete(evento)}>X</button>
-                            
-                        </>)}</li>
-                    <li>hola</li>
-            </ul>
-
-            <Link to="/home"><button>Back</button></Link>
+            
+             
 
             </div>
            
-            </>)
+            )
 };
 
 export default CreateDog;
